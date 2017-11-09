@@ -13,8 +13,9 @@ var LoadState = {
         game.load.image("level-1", "assets/level-1.png");
         
         game.load.image("level-2", "assets/level-2.png");
-        game.load.image("level-2-bkg", "assets/level-2-bkg.png");
         game.load.image("level-2-mob1", "assets/level-2-mob1.png");
+        
+        game.load.image("level-3", "assets/level-3.png");
         
     },
     
@@ -50,6 +51,7 @@ var LoadState = {
         
         oneKey = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
         twoKey = game.input.keyboard.addKey(Phaser.Keyboard.TWO);
+        threeKey = game.input.keyboard.addKey(Phaser.Keyboard.THREE);
     
         game.state.start("MainMenu");
     

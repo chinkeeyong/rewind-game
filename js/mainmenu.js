@@ -18,6 +18,8 @@ var MainMenuState = {
             game.state.start("Level1");
         } else if (twoKey.isDown) {
             game.state.start("Level2");
+        } else if (threeKey.isDown) {
+            game.state.start("Level3");
         }
         
     }

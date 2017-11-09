@@ -146,6 +146,16 @@ var Level1State = {
                     }
                     
                 }, this);
+                
+                //or touching an obstacle
+                
+                this.obstacles.forEach(function(component) {
+                    
+                    if (component.input.pointerOver()) { 
+                        outOfBounds = true;
+                    }
+                    
+                }, this);
             
                 if (outOfBounds) {
                     this.failRun();
@@ -340,6 +350,12 @@ var Level1State = {
                 item.input.pixelPerfectOver = true;
                 
             }, this);
+            this.obstacles.forEach(function(item) {
+                
+                item.inputEnabled = true;
+                item.input.pixelPerfectOver = true;
+                
+            }, this);
             
             //Make mouse FX
             this.makeMouseFX();
@@ -370,6 +386,7 @@ var Level1State = {
             
             //Stop level collision
             this.level.setAll('inputEnabled', false);
+            this.obstacles.setAll('inputEnabled', false);
             
             //Switch off mid-run tutorial message
             this.tutsign2.alpha = 0;

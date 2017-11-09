@@ -4,5 +4,6 @@ game.state.add("Load", LoadState);
 game.state.add("MainMenu", MainMenuState);
 game.state.add("Level1", Level1State);
 game.state.add("Level2", Level2State);
+game.state.add("Level3", Level3State);
         
 game.state.start("Load");

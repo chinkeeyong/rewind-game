@@ -1,4 +1,4 @@
-var Level2State = {
+var Level3State = {
     
     create: function () {
         
@@ -9,38 +9,43 @@ var Level2State = {
         */
         
         //ID of this track
-        this.trackid = 2;
+        this.trackid = 3;
         
         //Length of this track in frames
-        this.tracklength = 30000;
+        this.tracklength = 318;
         
         //Level layout
         this.levelbkgtexture = game.add.graphics();
         this.levelbkgtexture.beginFill(0x333333);
-        this.levelbkgtexture.drawCircle(0, 0, 328);
+        this.levelbkgtexture.drawRect(0, 0, 1024, 194);
         this.levelbkgtexture.endFill();
-        this.levelbkg = game.add.sprite(348, 231, this.levelbkgtexture.generateTexture());
+        this.levelbkg = game.add.sprite(0, 152, this.levelbkgtexture.generateTexture());
         this.levelbkgtexture.destroy();
         
         this.level = game.add.group();
-        this.levelstatic = game.add.sprite(158, 327, "level-2", null, this.level);
-        
-        this.mob1 = game.add.sprite(512, 396, "level-2-mob1", null, this.level);
-        this.mob1.anchor.setTo(0.5, 0.5);
+        this.levelstatic = game.add.sprite(162, 179, "level-3", null, this.level);
         
         //Level obstacles
         this.obstacles = game.add.group();
         
+        this.mob1texture = game.add.graphics();
+        this.mob1texture.beginFill(0x000000);
+        this.mob1texture.drawRect(0, -424, 1024, 577);
+        this.mob1texture.drawRect(0, 346, 1024, 422);
+        this.mob1texture.endFill();
+        this.mob1 = game.add.sprite(0, -424, this.mob1texture.generateTexture(), null, this.obstacles);
+        this.mob1texture.destroy();
+        
         //Startpoint position
-        this.startx = 226;
-        this.starty = 395;
+        this.startx = 230;
+        this.starty = 247;
         
         //Endpoint position
-        this.endx = 799;
-        this.endy = 395;
+        this.endx = 795;
+        this.endy = 247;
         
         //Name of the next level's state
-        this.nextlevel = "Level3";
+        this.nextlevel = "Level4";
         
         /*
         
@@ -50,25 +55,10 @@ var Level2State = {
         
         //Tutorial sign 1
         
-        this.tutsign1 = game.add.group();
-        
-        this.tutsign1arrow = game.add.sprite(225, 498, "arrow", 0, this.tutsign1);
-        this.tutsign1arrow.anchor.setTo(0.5, 0.5);
-        
-        this.tutsign1text = game.add.text(175, 520, "START HERE", noticestyle, this.tutsign1);
-        
-        this.tutsign1tween = game.add.tween(this.tutsign1)
-            .to ({ y: this.tutsign1.y - 5 }, 150, Phaser.Easing.Bounce.InOut, true, 0, -1, true);
-        
-        //Tutorial sign 2
-        
-        this.tutsign2 = game.add.text(366, 201, "Press S or DOWN ARROW to PAUSE", noticestyle);
-        this.tutsign2.alpha = 0;
-        
-        //Tutorial sign 3
-        
-        this.tutsign3 = game.add.text(373, 576, "Press D or RIGHT ARROW to PLAY", noticestyle);
-        this.tutsign3.alpha = 0;
+        this.tutsign1 = game.add.text(366, 708, "Press A or LEFT ARROW to REWIND", noticestyle);
+        this.tutsign1.sendToBack();
+        this.levelbkg.sendToBack();
+        //This makes the text display behind the scrolling bars, only above the gray bar, so it's slowly uncovered. Rad
         
         /*
         
@@ -168,20 +158,14 @@ var Level2State = {
             if (AKey.isDown || cursors.left.isDown) {
                 playdir = -1;
                 this.controls.frame = 1;
-                this.tutsign2.alpha = 1;
-                this.tutsign3.alpha = 0;
             
             } else if (SKey.isDown || cursors.down.isDown) {
                 playdir = 0;
                 this.controls.frame = 2;
-                this.tutsign2.alpha = 0;
-                this.tutsign3.alpha = 1;
             
             } else if (DKey.isDown || cursors.right.isDown) {
                 playdir = 1;
                 this.controls.frame = 3;
-                this.tutsign2.alpha = 1;
-                this.tutsign3.alpha = 0;
             
             }
         
@@ -324,7 +308,8 @@ var Level2State = {
     
     updateMobiles: function () {
         
-        this.mob1.angle = 90 + 1.5 * tracktime;
+        this.levelbkg.y = 1.3 * tracktime + 152;
+        this.mob1.y = 1.3 * tracktime - 424;
         
     },
     
@@ -369,10 +354,6 @@ var Level2State = {
             //Make mouse FX
             this.makeMouseFX();
             
-            //Switch to mid-run tutorial message
-            this.tutsign1.alpha = 0;
-            this.tutsign2.alpha = 1;
-            
         }
         
     },
@@ -395,10 +376,6 @@ var Level2State = {
             //Stop level collision
             this.level.setAll('inputEnabled', false);
             this.obstacles.setAll('inputEnabled', false);
-            
-            //Switch off mid-run tutorial message
-            this.tutsign2.alpha = 0;
-            this.tutsign3.alpha = 0;
             
         }
         
@@ -459,9 +436,6 @@ var Level2State = {
         
         //Reset run success
         this.runsucceeded = false;
-        
-        //Reset first tutorial message
-        this.tutsign1.alpha = 1;
         
     },
     
