@@ -1,0 +1,23 @@
+body {
+    
+    background-color: black;
+    
+}
+
+p {
+    
+    font-family: Tahoma, Geneva, sans-serif;
+    color: gray;
+    text-align: center;
+    margin: 25px;
+    
+}
+
+#canvas {
+    
+    display: block;
+    margin: auto;
+    
+    width: 1024px;
+    
+}
