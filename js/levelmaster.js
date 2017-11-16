@@ -34,7 +34,7 @@ var framesPerParticle = 4;
 var framesToNextParticle = 0;
 
 //FX particle settings
-var fxparticlespeed = 800;
+var fxparticlespeed = 900;
 var fxparticlelifespan = 500;
 
 //Collision grace period in frames
@@ -42,5 +42,5 @@ var collisiongraceperiod = 3;
 var collisiongraceremaining = 0;
 
 //Final report messages
-var finalreportfailtext = "Playback terminated. Click the starting point to try again.";
-var finalreportsuccesstext = "Playback successful. Press SPACE to continue or R to reset.";
+var finalreportfailtext = "Playback terminated. Press R or UP ARROW to try again.";
+var finalreportsuccesstext = "Playback successful. Press SPACE to continue.";

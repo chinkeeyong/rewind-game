@@ -11,7 +11,7 @@ var Level2State = {
         //ID of this track
         this.trackid = 2;
         
-        //Length of this track in frames
+        //Length of this track in centiseconds
         this.tracklength = 30000;
         
         //Level layout
@@ -324,7 +324,7 @@ var Level2State = {
     
     updateMobiles: function () {
         
-        this.mob1.angle = 90 + 1.5 * tracktime;
+        this.mob1.angle = 90 + 1.25 * tracktime;
         
     },
     

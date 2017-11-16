@@ -1,4 +1,4 @@
-var Level1State = {
+var Level5State = {
     
     create: function () {
         
@@ -9,28 +9,42 @@ var Level1State = {
         */
         
         //ID of this track
-        this.trackid = 1;
+        this.trackid = 5;
         
         //Length of this track in centiseconds
-        this.tracklength = 3000;
+        this.tracklength = 700;
         
         //Level layout
+        
         this.level = game.add.group();
-        this.levelstatic = game.add.sprite(88, 276, "level-1", null, this.level);
+        
+        this.levelmaptexture = game.add.graphics();
+        this.levelmaptexture.beginFill(0xf7931e);
+        this.levelmaptexture.drawCircle(263, 230, 136);
+        this.levelmaptexture.drawCircle(1777, 609, 136);
+        this.levelmaptexture.drawRect(304, 205, 1498, 50);
+        this.levelmaptexture.drawRect(1752, 205, 50, 176);
+        this.levelmaptexture.drawRect(238, 331, 1564, 50);
+        this.levelmaptexture.drawRect(238, 331, 50, 176);
+        this.levelmaptexture.drawRect(238, 457, 1564, 50);
+        this.levelmaptexture.drawRect(1752, 457, 50, 135);
+        this.levelmaptexture.endFill();
+        this.levelmap = game.add.sprite(195, 162, this.levelmaptexture.generateTexture(), null, this.level);
+        this.levelmaptexture.destroy();
         
         //Level obstacles
         this.obstacles = game.add.group();
         
         //Startpoint position
-        this.startx = 156;
-        this.starty = 375;
+        this.startx = 263;
+        this.starty = 230;
         
         //Endpoint position
-        this.endx = 864;
-        this.endy = 388;
+        this.endx = 1777;
+        this.endy = 609;
         
         //Name of the next level's state
-        this.nextlevel = "Level2";
+        this.nextlevel = "Level6";
         
         /*
         
@@ -38,45 +52,14 @@ var Level1State = {
         
         */
         
-        //Tutorial sign 1
-        
-        this.tutsign1 = game.add.group();
-        
-        this.tutsign1arrow = game.add.sprite(155, 480, "arrow", 0, this.tutsign1);
-        this.tutsign1arrow.anchor.setTo(0.5, 0.5);
-        
-        this.tutsign1text = game.add.text(105, 503, "START HERE", noticestyle, this.tutsign1);
-        
-        this.tutsign1tween = game.add.tween(this.tutsign1)
-            .to ({ y: this.tutsign1.y - 5 }, 150, Phaser.Easing.Bounce.InOut, true, 0, -1, true);
-        
-        //Tutorial sign 2
-        
-        this.tutsign2 = game.add.group();
-        
-        this.tutsign2arrow = game.add.sprite(863, 294, "arrow", 0, this.tutsign2);
-        this.tutsign2arrow.anchor.setTo(0.5, 0.5);
-        this.tutsign2arrow.angle = 180;
-        
-        this.tutsign2text = game.add.text(781, 250, "MOVE MOUSE HERE", noticestyle, this.tutsign2);
-        
-        this.tutsign2tween = game.add.tween(this.tutsign2)
-            .to ({ y: this.tutsign2.y - 5 }, 150, Phaser.Easing.Bounce.InOut, true, 0, -1, true);
-        
-        this.tutsign2.alpha = 0;
-        
-        //Tutorial sign 3
-        
-        this.tutsign3 = game.add.text(340, 307, "DON'T TOUCH THE WALLS", noticestyle);
-        this.tutsign3.anchor.setTo(0.5, 0.5);
-        this.tutsign3.angle = -14;
-        this.tutsign3.alpha = 0;
-        
         /*
         
         End of Editable Variables
         
         */
+        
+        //Start physics
+        game.physics.startSystem(Phaser.Physics.ARCADE);
         
         //Track UI text in upper left
         this.tracktext = game.add.text(16, 16, "", trackUIstyle);
@@ -119,7 +102,7 @@ var Level1State = {
         //Reset track time
         tracktime = 0;
         
-        //Write initial track UI
+        //Update initial mobiles and track UI
         this.updateMobiles();
         this.updateTrackUI();
         
@@ -317,6 +300,10 @@ var Level1State = {
     
     updateMobiles: function () {
         
+        this.levelmap.x = 195 - (tracktime * 3);
+        this.startpoint.x = 263 - (tracktime * 3);
+        this.endpoint.x = 1777 - (tracktime * 3);
+        
     },
     
     startRun: function() {
@@ -360,11 +347,6 @@ var Level1State = {
             //Make mouse FX
             this.makeMouseFX();
             
-            //Switch to mid-run tutorial message
-            this.tutsign1.alpha = 0;
-            this.tutsign2.alpha = 1;
-            this.tutsign3.alpha = 1;
-            
         }
         
     },
@@ -387,10 +369,6 @@ var Level1State = {
             //Stop level collision
             this.level.setAll('inputEnabled', false);
             this.obstacles.setAll('inputEnabled', false);
-            
-            //Switch off mid-run tutorial message
-            this.tutsign2.alpha = 0;
-            this.tutsign3.alpha = 0;
             
         }
         
@@ -451,9 +429,6 @@ var Level1State = {
         
         //Reset run success
         this.runsucceeded = false;
-        
-        //Reset first tutorial message
-        this.tutsign1.alpha = 1;
         
     },
     

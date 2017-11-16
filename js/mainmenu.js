@@ -20,6 +20,10 @@ var MainMenuState = {
             game.state.start("Level2");
         } else if (threeKey.isDown) {
             game.state.start("Level3");
+        } else if (fourKey.isDown) {
+            game.state.start("Level4");
+        } else if (fiveKey.isDown) {
+            game.state.start("Level5");
         }
         
     }

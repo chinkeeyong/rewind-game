@@ -52,6 +52,8 @@ var LoadState = {
         oneKey = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
         twoKey = game.input.keyboard.addKey(Phaser.Keyboard.TWO);
         threeKey = game.input.keyboard.addKey(Phaser.Keyboard.THREE);
+        fourKey = game.input.keyboard.addKey(Phaser.Keyboard.FOUR);
+        fiveKey = game.input.keyboard.addKey(Phaser.Keyboard.FIVE);
     
         game.state.start("MainMenu");
     

@@ -1,4 +1,4 @@
-var Level1State = {
+var Level4State = {
     
     create: function () {
         
@@ -9,28 +9,71 @@ var Level1State = {
         */
         
         //ID of this track
-        this.trackid = 1;
+        this.trackid = 4;
         
         //Length of this track in centiseconds
-        this.tracklength = 3000;
+        this.tracklength = 1000;
         
         //Level layout
+        
         this.level = game.add.group();
-        this.levelstatic = game.add.sprite(88, 276, "level-1", null, this.level);
+        
+        this.levelstatictexture = game.add.graphics();
+        this.levelstatictexture.beginFill(0xf7931e);
+        this.levelstatictexture.drawCircle(0, 0, 136);
+        this.levelstatictexture.endFill();
+        this.levelstartcircle = game.add.sprite(66, 138, this.levelstatictexture.generateTexture(), null, this.level);
+        this.levelendcircle = game.add.sprite(819, 582, this.levelstatictexture.generateTexture(), null, this.level);
+        this.levelstatictexture.destroy();
+        
+        this.mobtexture = game.add.graphics();
+        this.mobtexture.beginFill(0xf7931e);
+        this.mobtexture.drawRect(0, 0, 280, 87);    
+        this.mobtexture.drawRect(477, 0, 280, 87);
+        this.mobtexture.drawRect(954, 0, 280, 87);
+        this.mobtexture.drawRect(1431, 0, 280, 87);
+        this.mobtexture.drawRect(1908, 0, 280, 87);
+        this.mobtexture.endFill();
+        this.mob1 = game.add.sprite(-329, 516, this.mobtexture.generateTexture(), null, this.level);
+        this.mob2 = game.add.sprite(1388, -119, this.mobtexture.generateTexture(), null, this.level);
+        this.mob3 = game.add.sprite(-427, 740, this.mobtexture.generateTexture(), null, this.level);
+        this.mob4 = game.add.sprite(1720, -86, this.mobtexture.generateTexture(), null, this.level);
+        this.mob5 = game.add.sprite(-502, 947, this.mobtexture.generateTexture(), null, this.level);
+        this.mob6 = game.add.sprite(1681, 111, this.mobtexture.generateTexture(), null, this.level);
+        this.mob7 = game.add.sprite(-125, 965, this.mobtexture.generateTexture(), null, this.level);
+        this.mobtexture.destroy();
+        
+        this.mob1.anchor.setTo(0.5, 0.5);
+        this.mob2.anchor.setTo(0.5, 0.5);
+        this.mob3.anchor.setTo(0.5, 0.5);
+        this.mob4.anchor.setTo(0.5, 0.5);
+        this.mob5.anchor.setTo(0.5, 0.5);
+        this.mob6.anchor.setTo(0.5, 0.5);
+        this.mob7.anchor.setTo(0.5, 0.5);
+        
+        this.mob1.angle = -23;
+        this.mob2.angle = -23;
+        this.mob3.angle = -23;
+        this.mob4.angle = -23;
+        this.mob5.angle = -23;
+        this.mob6.angle = -23;
+        this.mob7.angle = -23;
+        
+        this.mobspeed = 2;
         
         //Level obstacles
         this.obstacles = game.add.group();
         
         //Startpoint position
-        this.startx = 156;
-        this.starty = 375;
+        this.startx = 134;
+        this.starty = 206;
         
         //Endpoint position
-        this.endx = 864;
-        this.endy = 388;
+        this.endx = 887;
+        this.endy = 650;
         
         //Name of the next level's state
-        this.nextlevel = "Level2";
+        this.nextlevel = "Level5";
         
         /*
         
@@ -38,45 +81,14 @@ var Level1State = {
         
         */
         
-        //Tutorial sign 1
-        
-        this.tutsign1 = game.add.group();
-        
-        this.tutsign1arrow = game.add.sprite(155, 480, "arrow", 0, this.tutsign1);
-        this.tutsign1arrow.anchor.setTo(0.5, 0.5);
-        
-        this.tutsign1text = game.add.text(105, 503, "START HERE", noticestyle, this.tutsign1);
-        
-        this.tutsign1tween = game.add.tween(this.tutsign1)
-            .to ({ y: this.tutsign1.y - 5 }, 150, Phaser.Easing.Bounce.InOut, true, 0, -1, true);
-        
-        //Tutorial sign 2
-        
-        this.tutsign2 = game.add.group();
-        
-        this.tutsign2arrow = game.add.sprite(863, 294, "arrow", 0, this.tutsign2);
-        this.tutsign2arrow.anchor.setTo(0.5, 0.5);
-        this.tutsign2arrow.angle = 180;
-        
-        this.tutsign2text = game.add.text(781, 250, "MOVE MOUSE HERE", noticestyle, this.tutsign2);
-        
-        this.tutsign2tween = game.add.tween(this.tutsign2)
-            .to ({ y: this.tutsign2.y - 5 }, 150, Phaser.Easing.Bounce.InOut, true, 0, -1, true);
-        
-        this.tutsign2.alpha = 0;
-        
-        //Tutorial sign 3
-        
-        this.tutsign3 = game.add.text(340, 307, "DON'T TOUCH THE WALLS", noticestyle);
-        this.tutsign3.anchor.setTo(0.5, 0.5);
-        this.tutsign3.angle = -14;
-        this.tutsign3.alpha = 0;
-        
         /*
         
         End of Editable Variables
         
         */
+        
+        //Start physics
+        game.physics.startSystem(Phaser.Physics.ARCADE);
         
         //Track UI text in upper left
         this.tracktext = game.add.text(16, 16, "", trackUIstyle);
@@ -119,7 +131,7 @@ var Level1State = {
         //Reset track time
         tracktime = 0;
         
-        //Write initial track UI
+        //Update initial mobiles and track UI
         this.updateMobiles();
         this.updateTrackUI();
         
@@ -317,6 +329,27 @@ var Level1State = {
     
     updateMobiles: function () {
         
+        this.mob1.x = -329 + (this.mobspeed * Math.cos(0.401426) * tracktime);
+        this.mob1.y = 516 - (this.mobspeed * Math.sin(0.401426) * tracktime);
+        
+        this.mob2.x = 1388 - (this.mobspeed * Math.cos(0.401426) * tracktime);
+        this.mob2.y = -119 + (this.mobspeed * Math.sin(0.401426) * tracktime);
+        
+        this.mob3.x = -427 + (this.mobspeed * Math.cos(0.401426) * tracktime);
+        this.mob3.y = 740 - (this.mobspeed * Math.sin(0.401426) * tracktime);
+        
+        this.mob4.x = 1720 - (this.mobspeed * Math.cos(0.401426) * tracktime);
+        this.mob4.y = -86 + (this.mobspeed * Math.sin(0.401426) * tracktime);
+        
+        this.mob5.x = -502 + (this.mobspeed * Math.cos(0.401426) * tracktime);
+        this.mob5.y = 947 - (this.mobspeed * Math.sin(0.401426) * tracktime);
+        
+        this.mob6.x = 1681 - (this.mobspeed * Math.cos(0.401426) * tracktime);
+        this.mob6.y = 111 + (this.mobspeed * Math.sin(0.401426) * tracktime);
+        
+        this.mob7.x = -125 + (this.mobspeed * Math.cos(0.401426) * tracktime);
+        this.mob7.y = 965 - (this.mobspeed * Math.sin(0.401426) * tracktime);
+        
     },
     
     startRun: function() {
@@ -360,11 +393,6 @@ var Level1State = {
             //Make mouse FX
             this.makeMouseFX();
             
-            //Switch to mid-run tutorial message
-            this.tutsign1.alpha = 0;
-            this.tutsign2.alpha = 1;
-            this.tutsign3.alpha = 1;
-            
         }
         
     },
@@ -387,10 +415,6 @@ var Level1State = {
             //Stop level collision
             this.level.setAll('inputEnabled', false);
             this.obstacles.setAll('inputEnabled', false);
-            
-            //Switch off mid-run tutorial message
-            this.tutsign2.alpha = 0;
-            this.tutsign3.alpha = 0;
             
         }
         
@@ -451,9 +475,6 @@ var Level1State = {
         
         //Reset run success
         this.runsucceeded = false;
-        
-        //Reset first tutorial message
-        this.tutsign1.alpha = 1;
         
     },
     

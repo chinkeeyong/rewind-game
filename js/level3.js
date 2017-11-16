@@ -11,7 +11,7 @@ var Level3State = {
         //ID of this track
         this.trackid = 3;
         
-        //Length of this track in frames
+        //Length of this track in centiseconds
         this.tracklength = 318;
         
         //Level layout
