@@ -483,6 +483,7 @@ var Level5State = {
         
         //Do the fancy static thing
         this.transitionTimeLeft = transitionDuration;
+        this.staticbmd.processPixelRGB(randomBrightness, this, 0, 0, 256, 192);
         this.staticimg.alpha = 1;
         game.sound.stopAll();
         noise.play();
