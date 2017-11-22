@@ -3,11 +3,11 @@ var MainMenuState = {
     create: function () {
             
         // Title
-        this.title = game.add.image(game.world.centerX, game.world.centerY - 25, "title");
+        this.title = game.add.image(512, 359, "title");
         this.title.anchor.setTo(0.5, 0.5);
             
         // Play button
-        this.playbutton = game.add.button(game.world.centerX, game.world.centerY + 100, "playbutton", this.loadLevel, this, 1, 0, 1);
+        this.playbutton = game.add.button(512, 484, "playbutton", this.loadLevel, this, 1, 0, 1);
         this.playbutton.anchor.setTo(0.5, 0.5);
     
     },
