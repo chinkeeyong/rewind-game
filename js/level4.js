@@ -130,6 +130,12 @@ var Level4State = {
         this.fxemitter.setXSpeed(-fxparticlespeed, fxparticlespeed);
         this.fxemitter.setYSpeed(-fxparticlespeed, fxparticlespeed);
         
+        //Create transition objects
+        this.staticbmd = game.make.bitmapData(256, 192);
+        this.staticimg = this.staticbmd.addToWorld(0, 0, 0, 0, 4, 4);
+        this.staticimg.alpha = 0;
+        this.transitionTimeLeft = 0;
+        
         //Reset track time
         tracktime = 0;
         
@@ -243,6 +249,23 @@ var Level4State = {
             //Update track UI
             this.updateTrackUI();
     
+        } else if (this.transitionTimeLeft > 0) { //Handle static transition
+            
+            this.transitionTimeLeft--;
+            if (this.transitionTimeLeft <= 0) {
+                
+                this.staticimg.alpha = 0;
+                game.sound.stopAll();
+                musicpaused.play("", 0, 1, true);
+                musicforward.play("", 0, 0, true);
+                musicbackward.play("", 0, 0, true);
+                
+            } else {
+                
+                this.staticbmd.processPixelRGB(randomBrightness, this, 0, 0, 256, 192);
+                
+            }
+            
         } else {
             
             //If mouse is hovering over startpoint...
@@ -259,6 +282,8 @@ var Level4State = {
             }
             
         }
+        
+        if (this.transitionTimeLeft <= 0) {
         
         //Check for reset input
         if (RKey.isDown || cursors.up.isDown) {
@@ -296,6 +321,8 @@ var Level4State = {
             p.height = 10 * p.lifespan / p.parent.lifespan;
             p.width = p.height;
         });
+            
+        }
         
     },
     
@@ -500,10 +527,11 @@ var Level4State = {
         this.updateMobiles();
         this.updateTrackUI();
         
+        //Do the fancy static thing
+        this.transitionTimeLeft = transitionDuration;
+        this.staticimg.alpha = 1;
         game.sound.stopAll();
-        musicpaused.play("", 0, 1, true);
-        musicforward.play("", 0, 0, true);
-        musicbackward.play("", 0, 0, true);
+        noise.play();
             
         //Enable the startpoint
         this.startpoint.setFrames(1, 0, 1, 0);

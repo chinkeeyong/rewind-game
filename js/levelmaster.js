@@ -44,3 +44,6 @@ var collisiongraceremaining = 0;
 //Final report messages
 var finalreportfailtext = "Playback terminated. Press R or UP ARROW to try again.";
 var finalreportsuccesstext = "Playback successful. Press SPACE to continue.";
+
+//Static transition effect duration
+var transitionDuration = 10;

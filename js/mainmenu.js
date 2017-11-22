@@ -15,21 +15,29 @@ var MainMenuState = {
     update: function () {
         
         if (oneKey.isDown) {
-            game.state.start("Level1");
+            transitionTarget = "Level1";
+            game.state.start("Transition");
         } else if (twoKey.isDown) {
-            game.state.start("Level2");
+            transitionTarget = "Level2";
+            game.state.start("Transition");
         } else if (threeKey.isDown) {
-            game.state.start("Level3");
+            transitionTarget = "Level3";
+            game.state.start("Transition");
         } else if (fourKey.isDown) {
-            game.state.start("Level4");
+            transitionTarget = "Level4";
+            game.state.start("Transition");
         } else if (fiveKey.isDown) {
-            game.state.start("Level5");
+            transitionTarget = "Level5";
+            game.state.start("Transition");
         } else if (sixKey.isDown) {
-            game.state.start("Level6");
+            transitionTarget = "Level6";
+            game.state.start("Transition");
         } else if (sevenKey.isDown) {
-            game.state.start("Level7");
+            transitionTarget = "Level7";
+            game.state.start("Transition");
         } else if (eightKey.isDown) {
-            game.state.start("Winner");
+            transitionTarget = "Winner";
+            game.state.start("Transition");
         }
         
     },
