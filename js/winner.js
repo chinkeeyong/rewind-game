@@ -18,8 +18,9 @@ var WinnerState = {
     },
     
     loadLevel: function () {
-    
-        game.state.start("MainMenu");
+        
+        transitionTarget = "MainMenu";
+        game.state.start("Transition");
         
     }
     

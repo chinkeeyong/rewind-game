@@ -4,6 +4,9 @@ var LoadState = {
     
     preload: function () {
         
+        this.loadingtext = game.add.text(512, 400, "Loading...", noticestyle);
+        this.loadingtext.anchor.setTo(0.5, 0.5);
+        
         game.load.image("title", "assets/title.png");
         game.load.spritesheet("playbutton", "assets/playbutton.png", 64, 64);
         game.load.spritesheet("controls", "assets/controls.png", 163, 25);
@@ -31,6 +34,7 @@ var LoadState = {
         game.load.audio("electrodynamix-reversed", ["assets/electrodynamix-reversed.mp3", "assets/electrodynamix-reversed.ogg"]);
         game.load.audio("cymbal", "assets/cymbal.wav");
         game.load.audio("rscratch", "assets/rscratch.wav");
+        game.load.audio("noise", "assets/noise.wav");
         
     },
     
@@ -80,8 +84,7 @@ var LoadState = {
         musicpaused = game.add.audio("electrodynamix-bass", 1, true);
         cymbal = game.add.audio("cymbal");
         rscratch = game.add.audio("rscratch");
-        
-        currentmusic = musicpaused;
+        noise = game.add.audio("noise");
     
         game.state.start("MainMenu");
     

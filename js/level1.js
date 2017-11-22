@@ -12,7 +12,7 @@ var Level1State = {
         this.trackid = 1;
         
         //Length of this track in centiseconds
-        this.tracklength = 3000;
+        this.tracklength = 2000;
         
         //Level layout
         this.level = game.add.group();
@@ -254,7 +254,8 @@ var Level1State = {
         
         //Check for next level input
         if (Spacebar.isDown && this.runsucceeded) {
-            game.state.start(this.nextlevel);
+            transitionTarget = this.nextlevel;
+            game.state.start("Transition");
         }
         
         //Rotate the startpoint and endpoint

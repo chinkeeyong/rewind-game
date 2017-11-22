@@ -236,7 +236,8 @@ var Level6State = {
         
         //Check for next level input
         if (Spacebar.isDown && this.runsucceeded) {
-            game.state.start(this.nextlevel);
+            transitionTarget = this.nextlevel;
+            game.state.start("Transition");
         }
         
         //Rotate the startpoint and endpoint

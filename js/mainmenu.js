@@ -36,7 +36,8 @@ var MainMenuState = {
     
     loadLevel: function () {
     
-        game.state.start("Level1");
+        transitionTarget = "Level1";
+        game.state.start("Transition");
         
     }
     
