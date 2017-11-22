@@ -24,6 +24,14 @@ var LoadState = {
         game.load.image("level-7", "assets/level-7.png");
         game.load.image("level-7-over", "assets/level-7-over.png");
         
+        game.load.image("endscreen", "assets/endscreen.png");
+        
+        game.load.audio("electrodynamix", ["assets/electrodynamix.mp3", "assets/electrodynamix.ogg"]);
+        game.load.audio("electrodynamix-bass", ["assets/electrodynamix-bass.mp3", "assets/electrodynamix-bass.ogg"]);
+        game.load.audio("electrodynamix-reversed", ["assets/electrodynamix-reversed.mp3", "assets/electrodynamix-reversed.ogg"]);
+        game.load.audio("cymbal", "assets/cymbal.wav");
+        game.load.audio("rscratch", "assets/rscratch.wav");
+        
     },
     
     create: function () {
@@ -63,6 +71,17 @@ var LoadState = {
         fiveKey = game.input.keyboard.addKey(Phaser.Keyboard.FIVE);
         sixKey = game.input.keyboard.addKey(Phaser.Keyboard.SIX);
         sevenKey = game.input.keyboard.addKey(Phaser.Keyboard.SEVEN);
+        eightKey = game.input.keyboard.addKey(Phaser.Keyboard.EIGHT);
+        
+        //Setup audio
+        
+        musicforward = game.add.audio("electrodynamix", 1, true);
+        musicbackward = game.add.audio("electrodynamix-reversed", 1, true);
+        musicpaused = game.add.audio("electrodynamix-bass", 1, true);
+        cymbal = game.add.audio("cymbal");
+        rscratch = game.add.audio("rscratch");
+        
+        currentmusic = musicpaused;
     
         game.state.start("MainMenu");
     

@@ -3,12 +3,12 @@ var MainMenuState = {
     create: function () {
             
         // Title
-        var title = game.add.image(game.world.centerX, game.world.centerY - 25, "title");
-        title.anchor.setTo(0.5, 0.5);
+        this.title = game.add.image(game.world.centerX, game.world.centerY - 25, "title");
+        this.title.anchor.setTo(0.5, 0.5);
             
         // Play button
-        var playbutton = game.add.button(game.world.centerX, game.world.centerY + 100, "playbutton", this.loadLevel, this, 1, 0, 1);
-        playbutton.anchor.setTo(0.5, 0.5);
+        this.playbutton = game.add.button(game.world.centerX, game.world.centerY + 100, "playbutton", this.loadLevel, this, 1, 0, 1);
+        this.playbutton.anchor.setTo(0.5, 0.5);
     
     },
     
@@ -28,6 +28,8 @@ var MainMenuState = {
             game.state.start("Level6");
         } else if (sevenKey.isDown) {
             game.state.start("Level7");
+        } else if (eightKey.isDown) {
+            game.state.start("Winner");
         }
         
     },

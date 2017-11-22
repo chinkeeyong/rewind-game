@@ -12,7 +12,7 @@ var Level2State = {
         this.trackid = 2;
         
         //Length of this track in centiseconds
-        this.tracklength = 30000;
+        this.tracklength = 3000;
         
         //Level layout
         this.levelbkgtexture = game.add.graphics();
@@ -120,9 +120,14 @@ var Level2State = {
         //Reset track time
         tracktime = 0;
         
-        //Update initial mobiles and track UI
+        //Initialize mobiles, track UI, music
         this.updateMobiles();
         this.updateTrackUI();
+        
+        game.sound.stopAll();
+        musicpaused.play("", 0, 1, true);
+        musicforward.play("", 0, 0, true);
+        musicbackward.play("", 0, 0, true);
         
     },
     
@@ -170,18 +175,27 @@ var Level2State = {
                 this.controls.frame = 1;
                 this.tutsign2.alpha = 1;
                 this.tutsign3.alpha = 0;
+                musicforward.volume = 0;
+                musicpaused.volume = 0;
+                musicbackward.volume = 1;
             
             } else if (SKey.isDown || cursors.down.isDown) {
                 playdir = 0;
                 this.controls.frame = 2;
                 this.tutsign2.alpha = 0;
                 this.tutsign3.alpha = 1;
+                musicforward.volume = 0;
+                musicpaused.volume = 1;
+                musicbackward.volume = 0;
             
             } else if (DKey.isDown || cursors.right.isDown) {
                 playdir = 1;
                 this.controls.frame = 3;
                 this.tutsign2.alpha = 1;
                 this.tutsign3.alpha = 0;
+                musicforward.volume = 1;
+                musicpaused.volume = 0;
+                musicbackward.volume = 0;
             
             }
         
@@ -193,6 +207,11 @@ var Level2State = {
                 tracktime = 0;
                 playdir = 0;
                 this.controls.frame = 2;
+                this.tutsign2.alpha = 0;
+                this.tutsign3.alpha = 1;
+                musicforward.volume = 0;
+                musicpaused.volume = 1;
+                musicbackward.volume = 0;
             }
         
             //If track is at end, stop playing
@@ -200,6 +219,11 @@ var Level2State = {
                 tracktime = this.tracklength;
                 playdir = 0;
                 this.controls.frame = 2;
+                this.tutsign2.alpha = 0;
+                this.tutsign3.alpha = 1;
+                musicforward.volume = 0;
+                musicpaused.volume = 1;
+                musicbackward.volume = 0;
             }
             
             //Make mouse particles
@@ -342,6 +366,11 @@ var Level2State = {
             tracktime = 0;
             playdir = 1;
             this.controls.frame = 3;
+        
+            game.sound.stopAll();
+            musicpaused.play("", 0, 0, true);
+            musicforward.play("", 0, 1, true);
+            musicbackward.play("", 0, 0, true);
             
             //Disable the startpoint
             this.startpoint.setFrames(1, 1, 1, 1);
@@ -411,6 +440,9 @@ var Level2State = {
             this.endRun();
             this.makeMouseFX();
             
+            game.sound.stopAll();
+            rscratch.play();
+            
             //Enable the startpoint
             this.startpoint.setFrames(1, 0, 1, 0);
             this.startpoint.inputEnabled = true;
@@ -429,6 +461,9 @@ var Level2State = {
             this.endRun();
             this.updateTrackUI();
             this.makeMouseFX();
+            
+            game.sound.stopAll();
+            cymbal.play();
             
             //Run succeeded
             this.runsucceeded = true;
@@ -449,6 +484,11 @@ var Level2State = {
         this.controls.frame = 0;
         this.updateMobiles();
         this.updateTrackUI();
+        
+        game.sound.stopAll();
+        musicpaused.play("", 0, 1, true);
+        musicforward.play("", 0, 0, true);
+        musicbackward.play("", 0, 0, true);
             
         //Enable the startpoint
         this.startpoint.setFrames(1, 0, 1, 0);

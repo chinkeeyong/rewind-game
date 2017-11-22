@@ -9,5 +9,6 @@ game.state.add("Level4", Level4State);
 game.state.add("Level5", Level5State);
 game.state.add("Level6", Level6State);
 game.state.add("Level7", Level7State);
+game.state.add("Winner", WinnerState);
         
 game.state.start("Load");
