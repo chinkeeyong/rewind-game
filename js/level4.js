@@ -81,6 +81,8 @@ var Level4State = {
         
         */
         
+        this.tutsign1 = game.add.text(200, 16, "A or LEFT ARROW to REWIND\nS or DOWN ARROW to PAUSE\nD or RIGHT ARROW to PLAY", finalreportstyle);
+        
         /*
         
         End of Editable Variables

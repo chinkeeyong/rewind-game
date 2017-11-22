@@ -1,4 +1,4 @@
-var Level5State = {
+var Level6State = {
     
     create: function () {
         
@@ -9,50 +9,48 @@ var Level5State = {
         */
         
         //ID of this track
-        this.trackid = 5;
+        this.trackid = 6;
         
         //Length of this track in centiseconds
-        this.tracklength = 700;
+        this.tracklength = 690;
         
         //Level layout
         
         this.level = game.add.group();
         
-        this.levelmaptexture = game.add.graphics();
-        this.levelmaptexture.beginFill(0xf7931e);
-        this.levelmaptexture.drawCircle(263, 230, 136);
-        this.levelmaptexture.drawCircle(1777, 609, 136);
-        this.levelmaptexture.drawRect(304, 205, 1498, 50);
-        this.levelmaptexture.drawRect(1752, 205, 50, 176);
-        this.levelmaptexture.drawRect(238, 331, 1564, 50);
-        this.levelmaptexture.drawRect(238, 331, 50, 176);
-        this.levelmaptexture.drawRect(238, 457, 1564, 50);
-        this.levelmaptexture.drawRect(1752, 457, 50, 135);
-        this.levelmaptexture.endFill();
-        this.levelmap = game.add.sprite(195, 162, this.levelmaptexture.generateTexture(), null, this.level);
-        this.levelmaptexture.destroy();
+        this.levelstatic = game.add.sprite(123, 125, "level-6", null, this.level);
+        
+        this.mobtexture = game.add.graphics();
+        this.mobtexture.beginFill(0xf7931e);
+        this.mobtexture.drawRoundedRect(0, 0, 280, 30, 15);
+        this.mobtexture.endFill();
+        this.mob1 = game.add.sprite(512, 390, this.mobtexture.generateTexture(), null, this.level);
+        this.mob2 = game.add.sprite(512, 390, this.mobtexture.generateTexture(), null, this.level);
+        this.mobtexture.destroy();
+        
+        this.mob1.anchor.setTo(0.05357142857, 0.5);
+        this.mob2.anchor.setTo(0.05357142857, 0.5);
+        
         
         //Level obstacles
         this.obstacles = game.add.group();
         
         //Startpoint position
-        this.startx = 263;
-        this.starty = 230;
+        this.startx = 191;
+        this.starty = 390;
         
         //Endpoint position
-        this.endx = 1777;
-        this.endy = 609;
+        this.endx = 833;
+        this.endy = 390;
         
         //Name of the next level's state
-        this.nextlevel = "Level6";
+        this.nextlevel = "Level7";
         
         /*
         
         Level Unique Objects
         
         */
-        
-        this.tutsign1 = game.add.text(200, 16, "A or LEFT ARROW to REWIND\nS or DOWN ARROW to PAUSE\nD or RIGHT ARROW to PLAY", finalreportstyle);
         
         /*
         
@@ -302,9 +300,8 @@ var Level5State = {
     
     updateMobiles: function () {
         
-        this.levelmap.x = 195 - (tracktime * 3);
-        this.startpoint.x = 263 - (tracktime * 3);
-        this.endpoint.x = 1777 - (tracktime * 3);
+        this.mob1.angle = -30 + tracktime * 2;
+        this.mob2.angle = 30 + tracktime / 6;
         
     },
     

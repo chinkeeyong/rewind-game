@@ -8,7 +8,9 @@ var LoadState = {
         game.load.spritesheet("playbutton", "assets/playbutton.png", 64, 64);
         game.load.spritesheet("controls", "assets/controls.png", 163, 25);
         game.load.spritesheet("bubble", "assets/bubble.png", 50, 50);
-        game.load.spritesheet("arrow", "assets/arrow.png", 54, 30);
+        game.load.image("arrow", "assets/arrow.png");
+        game.load.image("guard", "assets/guard.png");
+        game.load.image("doubleguard", "assets/doubleguard.png");
         
         game.load.image("level-1", "assets/level-1.png");
         
@@ -16,6 +18,11 @@ var LoadState = {
         game.load.image("level-2-mob1", "assets/level-2-mob1.png");
         
         game.load.image("level-3", "assets/level-3.png");
+        
+        game.load.image("level-6", "assets/level-6.png");
+        
+        game.load.image("level-7", "assets/level-7.png");
+        game.load.image("level-7-over", "assets/level-7-over.png");
         
     },
     
@@ -54,6 +61,8 @@ var LoadState = {
         threeKey = game.input.keyboard.addKey(Phaser.Keyboard.THREE);
         fourKey = game.input.keyboard.addKey(Phaser.Keyboard.FOUR);
         fiveKey = game.input.keyboard.addKey(Phaser.Keyboard.FIVE);
+        sixKey = game.input.keyboard.addKey(Phaser.Keyboard.SIX);
+        sevenKey = game.input.keyboard.addKey(Phaser.Keyboard.SEVEN);
     
         game.state.start("MainMenu");
     

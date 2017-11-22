@@ -7,7 +7,7 @@ var MainMenuState = {
         title.anchor.setTo(0.5, 0.5);
             
         // Play button
-        var playbutton = game.add.button(game.world.centerX, game.world.centerY + 100, "playbutton", loadLevel, this, 1, 0, 1);
+        var playbutton = game.add.button(game.world.centerX, game.world.centerY + 100, "playbutton", this.loadLevel, this, 1, 0, 1);
         playbutton.anchor.setTo(0.5, 0.5);
     
     },
@@ -24,14 +24,18 @@ var MainMenuState = {
             game.state.start("Level4");
         } else if (fiveKey.isDown) {
             game.state.start("Level5");
+        } else if (sixKey.isDown) {
+            game.state.start("Level6");
+        } else if (sevenKey.isDown) {
+            game.state.start("Level7");
         }
+        
+    },
+    
+    loadLevel: function () {
+    
+        game.state.start("Level1");
         
     }
     
 };
-
-var loadLevel = function () {
-    
-    game.state.start("Level1");
-    
-}

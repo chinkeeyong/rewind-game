@@ -1,4 +1,4 @@
-var Level5State = {
+var Level7State = {
     
     create: function () {
         
@@ -9,50 +9,96 @@ var Level5State = {
         */
         
         //ID of this track
-        this.trackid = 5;
+        this.trackid = 7;
         
         //Length of this track in centiseconds
-        this.tracklength = 700;
+        this.tracklength = 504;
         
         //Level layout
         
         this.level = game.add.group();
         
-        this.levelmaptexture = game.add.graphics();
-        this.levelmaptexture.beginFill(0xf7931e);
-        this.levelmaptexture.drawCircle(263, 230, 136);
-        this.levelmaptexture.drawCircle(1777, 609, 136);
-        this.levelmaptexture.drawRect(304, 205, 1498, 50);
-        this.levelmaptexture.drawRect(1752, 205, 50, 176);
-        this.levelmaptexture.drawRect(238, 331, 1564, 50);
-        this.levelmaptexture.drawRect(238, 331, 50, 176);
-        this.levelmaptexture.drawRect(238, 457, 1564, 50);
-        this.levelmaptexture.drawRect(1752, 457, 50, 135);
-        this.levelmaptexture.endFill();
-        this.levelmap = game.add.sprite(195, 162, this.levelmaptexture.generateTexture(), null, this.level);
-        this.levelmaptexture.destroy();
+        this.levelstatic = game.add.sprite(62, 126, "level-7", null, this.level);
         
         //Level obstacles
         this.obstacles = game.add.group();
         
+        this.guard1 = game.add.sprite(130, 296, "guard", null, this.obstacles);
+        this.guard2 = game.add.sprite(130, 461, "guard", null, this.obstacles);
+        this.guard3 = game.add.sprite(130, 623, "guard", null, this.obstacles);
+        this.guard4 = game.add.sprite(310, 535, "guard", null, this.obstacles);
+        this.guard5 = game.add.sprite(448, 705, "guard", null, this.obstacles);
+        this.guard6 = game.add.sprite(579, 535, "guard", null, this.obstacles);
+        this.guard7 = game.add.sprite(712, 705, "guard", null, this.obstacles);
+        
+        this.guard1.anchor.setTo(0.17657342657, 0.17657342657);
+        this.guard2.anchor.setTo(0.17657342657, 0.17657342657);
+        this.guard3.anchor.setTo(0.17657342657, 0.17657342657);
+        this.guard4.anchor.setTo(0.17657342657, 0.17657342657);
+        this.guard5.anchor.setTo(0.17657342657, 0.17657342657);
+        this.guard6.anchor.setTo(0.17657342657, 0.17657342657);
+        this.guard7.anchor.setTo(0.17657342657, 0.17657342657);
+        
+        this.hgatesprite = game.add.graphics();
+        this.hgatesprite.beginFill(0x333333);
+        this.hgatesprite.drawRect(0, 0, 133, 16.87);
+        this.hgatesprite.drawRect(266.14, 0, 133, 16.87);
+        this.hgatesprite.endFill();
+        
+        this.hgate1 = game.add.sprite(329, 228, this.hgatesprite.generateTexture(), null, this.obstacles);
+        this.hgate3 = game.add.sprite(292, 406, this.hgatesprite.generateTexture(), null, this.obstacles);
+        
+        this.hgatesprite.beginFill(0x333333);
+        this.hgatesprite.drawRect(0, 0, 400.14, 16.87);
+        this.hgatesprite.endFill();
+        
+        this.hgate2 = game.add.sprite(310, 316, this.hgatesprite.generateTexture(), null, this.obstacles);
+        
+        this.hgatesprite.destroy();
+        
+        this.vgatesprite = game.add.graphics();
+        this.vgatesprite.beginFill(0x333333);
+        this.vgatesprite.drawRect(0, 0, 16.87, 88.36);
+        this.vgatesprite.drawRect(0, 140.34, 16.87, 125.81);
+        this.vgatesprite.endFill();
+        
+        this.vgate1 = game.add.sprite(369, 213, this.vgatesprite.generateTexture(), null, this.obstacles);
+        this.vgate2 = game.add.sprite(502, 176, this.vgatesprite.generateTexture(), null, this.obstacles);
+        
+        this.vgatesprite.beginFill(0x333333);
+        this.vgatesprite.drawRect(0, 0, 16.87, 266.14);
+        this.vgatesprite.endFill();
+        
+        this.vgate3 = game.add.sprite(638, 213, this.vgatesprite.generateTexture(), null, this.obstacles);
+        
+        this.vgatesprite.destroy();
+        
+        this.doubleguard1 = game.add.sprite(893, 296, "doubleguard", null, this.obstacles);
+        this.doubleguard2 = game.add.sprite(893, 461, "doubleguard", null, this.obstacles);
+        this.doubleguard3 = game.add.sprite(893, 623, "doubleguard", null, this.obstacles);
+        
+        this.doubleguard1.anchor.setTo(0.5, 0.5);
+        this.doubleguard2.anchor.setTo(0.5, 0.5);
+        this.doubleguard3.anchor.setTo(0.5, 0.5);
+        
+        this.obststatic = game.add.sprite(0, 176, "level-7-over", null, this.obstacles);
+        
         //Startpoint position
-        this.startx = 263;
-        this.starty = 230;
+        this.startx = 130;
+        this.starty = 194;
         
         //Endpoint position
-        this.endx = 1777;
-        this.endy = 609;
+        this.endx = 893;
+        this.endy = 194;
         
         //Name of the next level's state
-        this.nextlevel = "Level6";
+        this.nextlevel = "Winner";
         
         /*
         
         Level Unique Objects
         
         */
-        
-        this.tutsign1 = game.add.text(200, 16, "A or LEFT ARROW to REWIND\nS or DOWN ARROW to PAUSE\nD or RIGHT ARROW to PLAY", finalreportstyle);
         
         /*
         
@@ -302,9 +348,28 @@ var Level5State = {
     
     updateMobiles: function () {
         
-        this.levelmap.x = 195 - (tracktime * 3);
-        this.startpoint.x = 263 - (tracktime * 3);
-        this.endpoint.x = 1777 - (tracktime * 3);
+        this.guard1.angle = 45 + (tracktime * 1.5);
+        this.guard2.angle = 135 + (tracktime * 1);
+        this.guard3.angle = -135 - (tracktime * 0.5);
+        
+        this.guard4.angle = 45 + (45 * Math.sin(tracktime/40));
+        this.guard5.angle = -135 + (45 * Math.sin(tracktime/40));
+        this.guard6.angle = 45 + (45 * Math.sin(tracktime/40));
+        this.guard7.angle = -135 + (45 * Math.sin(tracktime/40));
+        
+        this.hgate1.x = 310.5 + (47 * Math.cos(tracktime/4));
+        this.hgate2.x = 310.5 - (47 * Math.cos(tracktime/6));
+        this.hgate3.x = 310.5 - (47 * Math.cos(tracktime/8));
+        
+        this.vgate1.y = 194.5 + (18.5 * Math.cos(tracktime/4));
+        this.vgate2.y = 194.5 - (18.5 * Math.cos(tracktime/6));
+        this.vgate3.y = 194.5 + (18.5 * Math.cos(tracktime/8));
+        
+        this.doubleguard1.angle = -45 - (tracktime * 0.5);
+        this.doubleguard2.angle = 45 - (tracktime * 1.5);
+        this.doubleguard3.angle = -45 - tracktime;
+        
+        this.doubleguard2.y = 461 - (20 * Math.sin(tracktime/40));
         
     },
     
